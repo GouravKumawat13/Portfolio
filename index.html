@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Gourav Kumawat Portfolio</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Font Awesome for Social Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- GSAP CDN (Core, ScrollTrigger, TextPlugin, ScrollToPlugin) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+
+ <style>
+/* Base + Font */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #08070a; /* deep onyx for a luxury base */
+    color: #F8F6F4;
+    opacity: 0;
+}
+
+/* Scrollbar */
+body::-webkit-scrollbar { width: 8px; }
+body::-webkit-scrollbar-track { background: #0f0f11; }
+body::-webkit-scrollbar-thumb {
+    background-color: #7a6952; /* soft bronze */
+    border-radius: 20px;
+    border: 2px solid #0f0f11;
+}
+
+/* ------------------------------ */
+/* 🎨 LUXURY SECTION-BASED TEXT COLORS  */
+/* ------------------------------ */
+
+/* HOME — Icy Champagne / Soft Gold */
+#home h1,
+#home p,
+#home .colorful-text {
+    color: #F6EFE6;
+}
+#home .colorful-text {
+    background: linear-gradient(90deg, #F8EFD4, #F3DFA8 60%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ABOUT — Rich Plum / Velvet Mauve */
+#about h2 {
+    background: linear-gradient(90deg, #A66BAF, #7B4E8A);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+#about p { color: #EBDFF4; }
+
+/* SKILLS — Deep Sapphire / Royal Indigo */
+#skills h2 {
+    background: linear-gradient(90deg, #3B5CC6, #2B3AA1);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+#skills .skill-card p { color: #DCE9FF; }
+
+/* EXPERIENCE — Warm Gold / Antique Brass */
+#experience h2 {
+    background: linear-gradient(90deg, #D4AF37, #B8860B);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+#experience p { color: #F8E9B6; }
+
+/* PROJECTS — Emerald / Teal (luxury jewel tone) */
+#projects h2 {
+    background: linear-gradient(90deg, #2BAF91, #1E8F74);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+#projects p { color: #CFF9E6; }
+
+/* EDUCATION — Rose Gold / Soft Blush */
+#education h2 {
+    background: linear-gradient(90deg, #F6B8C6, #E89FB2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+#education p { color: #F9E7EE; }
+
+/* RESUME — Midnight Sky / Cobalt */
+#resume h2 {
+    background: linear-gradient(90deg, #1E3A8A, #3357C6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+#resume p { color: #D7E8FF; }
+
+/* ------------------------------ */
+/* Elegant Text Shine (keep subtle) */
+/* ------------------------------ */
+
+@keyframes subtleGlow {
+    0%   { text-shadow: 0 0 8px rgba(212,175,55,0.06); }
+    100% { text-shadow: 0 0 18px rgba(59,130,246,0.06); }
+}
+
+/* Navbar Links + Underline */
+.nav-link {
+    position: relative;
+    transition: color 0.25s ease;
+    color: #dcd6ce;
+}
+
+.nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    height: 3px;
+    width: 0%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, rgba(212,175,55,0.95), rgba(123,79,175,0.85));
+    transition: width 350ms cubic-bezier(.2,.9,.2,1);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after { width: 100%; }
+
+/* Mobile Menu Blur */
+.backdrop-blur-sm {
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+}
+
+/* Home Background — Luxury textured image (velvet/architectural) */
+#home {
+    background: url("https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1920&q=80")
+    center/cover no-repeat fixed;
+    position: relative;
+    isolation: isolate;
+}
+
+#home::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(3,2,6,0.45),
+        rgba(3,2,6,0.85)
+    );
+    z-index: 0;
+}
+
+#home > * { position: relative; z-index: 1; }
+
+/* GLASS CARDS — warm-tinted glass for luxury feel */
+.skill-card,
+.project-card,
+.education-card,
+.experience-item,
+.bg-gray-800 {
+    background: rgba(12, 10, 12, 0.5) !important; /* slightly warmer, semi-opaque */
+    border: 1px solid rgba(212,175,55,0.08) !important; /* soft gold border */
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border-radius: 16px !important;
+    box-shadow: 0 10px 40px rgba(3,3,6,0.6);
+    transition: all 0.35s ease;
+}
+
+/* Hover effect (smooth, elegant, professional) */
+.skill-card:hover,
+.project-card:hover,
+.education-card:hover,
+.experience-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 60px rgba(32,33,48,0.6);
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.04)) !important;
+}
+
+/* Additional experience hover refinement */
+.experience-item:hover {
+    border-color: rgba(212,175,55,0.18) !important;
+}
+
+/* Typewriter FIX (no movement) */
+#typewriter-text {
+    display: inline-block;
+    min-height: 2.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* Modals */
+#experience-modal {
+    background: rgba(2,2,4,0.75);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+}
+
+#modal-content {
+    background: rgba(18, 20, 25, 0.82) !important;
+    border: 1px solid rgba(212,175,55,0.07) !important;
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+}
+
+/* Lucide Icons crisp */
+[data-lucide] { display: inline-block; vertical-align: middle; }
+
+/* Buttons — Luxury Gold gradient */
+button,
+a.button,
+a[href$=".pdf"],
+.download-btn {
+    background: linear-gradient(90deg, #D4AF37, #B8860B);
+    color: #0b0b0b;
+    border-radius: 12px;
+    padding: 12px 26px;
+    font-weight: 700;
+    transition: all 0.28s ease;
+    box-shadow: 0 8px 26px rgba(180,140,60,0.12);
+}
+
+button:hover,
+a.button:hover,
+.download-btn:hover {
+    background: linear-gradient(90deg, #C79F2F, #9C6F08);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px rgba(156,111,8,0.18);
+}
+
+/* Timeline & layout adjustments (kept as-is but recolored) */
+.wrap {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.wrap::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    background: linear-gradient(180deg, rgba(212,175,55,0.25), rgba(123,79,175,0.12));
+    transform: translateX(-50%);
+}
+
+.timeline-dot { z-index: 10; border: 3px solid rgba(255,255,255,0.06); }
+
+.glass-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.04);
+    -webkit-backdrop-filter: blur(120px);
+    backdrop-filter: blur(12px);
+}
+
+/* Prevent weird spacing */
+#experience .space-y-20 > div {
+    min-height: 120px;
+}
+
+/* ------------------------------ */
+/* Section subtle background tints (luxury) */
+/* ------------------------------ */
+
+/* Add very subtle background tints for each section to separate visually without changing layout */
+#home { background-blend-mode: overlay; }
+#about { background-color: rgba(18,12,20,0.25); }
+#skills { background-color: rgba(8,20,30,0.18); }
+#experience { background-color: rgba(12,10,8,0.12); }
+#projects { background-color: rgba(6,18,12,0.14); }
+#education { background-color: rgba(20,8,14,0.12); }
+#resume { background-color: rgba(6,10,20,0.16); }
+
+/* Ensure no unintended horizontal scroll from timeline or larger elements */
+html, body {
+    overflow-x: hidden;
+}
+
+/* Small responsive tweaks retained from original */
+@media (min-width: 768px) {
+    .timeline-item-left,
+    .timeline-item-right {
+        width: 46%;
+    }
+
+    .right-timeline {
+        flex-direction: row;
+        text-align: left;
+    }
+
+    .left-timeline {
+        flex-direction: row-reverse;
+        text-align: left;
+    }
+
+    .right-timeline .timeline-item-right {
+        margin-left: 2%;
+    }
+
+    .left-timeline .timeline-item-left {
+        margin-right: 2%;
+    }
+}
+
+/* Footer — glass + merge with above background */
+.footer-glass {
+  /* subtle merge: top part transparent to slightly darker at bottom */
+  background: linear-gradient(180deg,
+    rgba(13,13,13,0.00) 0%,    /* completely transparent at top to blend */
+    rgba(14,14,16,0.12) 40%,
+    rgba(10,10,12,0.22) 100%  /* gentle darkening at bottom */
+  );
+  border-top: 1px solid rgba(255,255,255,0.03); /* very subtle line */
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 -8px 30px rgba(0,0,0,0.45); /* faint lift */
+  color: #e6e6ea;
+  /* keep it full width and above other elements if necessary */
+  position: relative;
+  z-index: 10;
+}
+
+/* Ensure footer text is readable and slightly warmer */
+.footer-glass .footer-text {
+  color: #e5e7eb;
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+/* Remove any default Tailwind background that may be applied elsewhere.
+   This forces glass styling to win if classes remain on the element. */
+.footer-glass.bg-gray-900,
+.footer-glass.bg-gray-800 {
+  background: none !important;
+}
+
+/* If there are border utility classes present, downplay them */
+.footer-glass.border-t,
+.footer-glass.border-gray-800 {
+  border-top: 1px solid rgba(255,255,255,0.03) !important;
+}
+
+/* Rainbow GSAP text — works in Chrome & Firefox */
+.rainbow-text {
+  display: inline-block;
+  font-weight: 700;
+  /* gradient */
+  background: linear-gradient(90deg, #ff6ec4 0%, #7873f5 25%, #4ade80 50%, #38bdf8 75%, #fcd34d 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;               /* for Firefox */
+  -webkit-text-fill-color: transparent; /* for WebKit */
+  /* subtle glow to make it pop on dark backgrounds */
+  filter: drop-shadow(0 0 6px rgba(56,189,248,0.12));
+  transition: filter 300ms ease;
+}
+
+/* gentle hover glow */
+.rainbow-text:hover {
+  filter: drop-shadow(0 0 10px rgba(56,189,248,0.25));
+}
+
+/* small responsive tweaks so footer doesn't look tight on small screens */
+@media (max-width: 640px) {
+  .footer-glass {
+    padding: 20px 12px;
+  }
+  .footer-glass .footer-text { font-size: 0.9rem; }
+}
+
+</style>
+
+
+</head>
+<body>
+
+    <!-- Main Navigation Bar (Fixed for tablet/desktop) -->
+    <header id="navbar" class="fixed top-0 left-0 w-full z-50 bg-gray-900/90 backdrop-blur-md shadow-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                    <a href="#home" class="text-3xl font-extrabold colorful-text transition duration-300 hover:opacity-80">
+                        Gourav Kumawat
+                    </a>
+                </div>
+
+                <!-- Desktop/Tablet Menu (Hidden on mobile) -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link relative text-lg font-medium text-gray-300 hover:text-white transition duration-300">Home</a>
+                    <a href="#about" class="nav-link relative text-lg font-medium text-gray-300 hover:text-white transition duration-300">About</a>
+                    <a href="#skills" class="nav-link relative text-lg font-medium text-gray-300 hover:text-white transition duration-300">Skills</a>
+                    <a href="#experience" class="nav-link relative text-lg font-medium text-gray-300 hover:text-white transition duration-300">Experience</a>
+                    <a href="#projects" class="nav-link relative text-lg font-medium text-gray-300 hover:text-white transition duration-300">Projects</a>
+                    <a href="#education" class="nav-link relative text-lg font-medium text-gray-300 hover:text-white transition duration-300">Education</a>
+                    <a href="#resume" class="nav-link relative text-lg font-medium text-gray-300 hover:text-white transition duration-300">Resume</a>
+                </nav>
+
+                <!-- Mobile Menu Button (Visible on mobile) -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" type="button" aria-label="Open mobile navigation menu" class="p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden absolute top-0 left-0 w-full h-screen backdrop-blur-sm bg-gray-900/80 z-40">
+            <div class="px-2 pt-2 pb-3 space-y-2 sm:px-3 flex flex-col items-center pt-24">
+                <a href="#home" class="mobile-nav-link text-3xl font-medium colorful-text py-2 transition duration-300 hover:opacity-80 w-full text-center">Home</a>
+                <a href="#about" class="mobile-nav-link text-3xl font-medium text-gray-300 py-2 transition duration-300 hover:colorful-text w-full text-center">About</a>
+                <a href="#skills" class="mobile-nav-link text-3xl font-medium text-gray-300 py-2 transition duration-300 hover:colorful-text w-full text-center">Skills</a>
+                <a href="#experience" class="mobile-nav-link text-3xl font-medium text-gray-300 py-2 transition duration-300 hover:colorful-text w-full text-center">Experience</a>
+                <a href="#projects" class="mobile-nav-link text-3xl font-medium text-gray-300 py-2 transition duration-300 hover:colorful-text w-full text-center">Projects</a>
+                <a href="#education" class="mobile-nav-link text-3xl font-medium text-gray-300 py-2 transition duration-300 hover:colorful-text w-full text-center">Education</a>
+                <a href="#resume" class="mobile-nav-link text-3xl font-medium text-gray-300 py-2 transition duration-300 hover:colorful-text w-full text-center">Resume</a>
+            </div>
+        </div>
+    </header>
+    
+    <main class="pt-20">
+        <!-- GSAP Section: All main sections will use a fade-up animation via ScrollTrigger applied in JS -->
+        
+        <!-- START: Home Page Section -->
+        <section id="home" class="min-h-screen flex items-center justify-center p-4 section-fade-up">
+            <div class="text-center space-y-8 max-w-4xl w-full">
+                <!-- Placeholder Image (Use a nice placeholder for professional look) -->
+                <div class="relative mx-auto h-48 w-48 sm:h-64 sm:w-64">
+                    <img id="my-image" class="w-full h-full rounded-full object-cover shadow-2xl ring-4 ring-purple-500/50" 
+                         src="Gourav_Kumawat_Picture.jpeg" 
+                         onerror="this.src='https://placehold.co/256x256/252f40/9CA3AF?text=Your+Image'" alt="Your Professional Headshot">
+                    <div class="absolute inset-0 rounded-full border-4 border-transparent hover:border-purple-500 transition duration-500 ease-in-out"></div>
+                </div>
+
+                <h1 class="text-4xl sm:text-6xl font-extrabold text-white">
+                    Hi, I'm <span class="colorful-text">Gourav Kumawat</span>
+                </h1>
+
+                <!-- Typewriter effect target -->
+                <p id="typewriter-text" class="text-xl sm:text-3xl font-light text-gray-400 min-h-8"></p>
+
+                <!-- Social Icons -->
+                <div class="flex justify-center space-x-6 pt-4">
+                    <!-- LinkedIn -->
+                    <a href="https://www.linkedin.com/in/gourav-kumawat/" target="_blank" rel="noopener noreferrer" 
+                       class="social-icon group w-12 h-12 flex items-center justify-center bg-gray-700 hover:bg-[#0A66C2] rounded-lg transition duration-300 shadow-lg"
+                       aria-label="LinkedIn Profile">
+                        <i class="fab fa-linkedin-in text-2xl text-white group-hover:text-white"></i>
+                    </a>
+                    <!-- GitHub -->
+                    <a href="https://github.com/GouravKumawat13" target="_blank" rel="noopener noreferrer"
+                       class="social-icon group w-12 h-12 flex items-center justify-center bg-gray-700 hover:bg-[#6e5494] rounded-lg transition duration-300 shadow-lg"
+                       aria-label="GitHub Profile">
+                        <i class="fab fa-github text-2xl text-white group-hover:text-white"></i>
+                    </a>
+                    <!-- Add another icon, e.g., Twitter/X -->
+                   <!-- <a href="https://twitter.com/yourprofile" target="_blank" rel="noopener noreferrer"
+                       class="social-icon group w-12 h-12 flex items-center justify-center bg-gray-700 hover:bg-gray-200 rounded-lg transition duration-300 shadow-lg"
+                       aria-label="X (Twitter) Profile">
+                        <i class="fab fa-twitter text-2xl text-white group-hover:text-black"></i>
+                    </a> -->
+                </div>
+            </div>
+        </section>
+        <!-- END: Home Page Section -->
+
+        <!-- Divider -->
+        <div class="max-w-7xl mx-auto px-4"><hr class="border-gray-800"></div>
+
+        <!-- START: About Page Section -->
+        <section id="about" class="min-h-screen flex items-center justify-center p-8 lg:p-16 section-fade-up">
+            <div class="max-w-7xl mx-auto w-full grid md:grid-cols-2 gap-12 items-center">
+                
+                <div class="order-2 md:order-1 space-y-6">
+                    <h2 class="text-5xl font-extrabold colorful-text mb-4">About Me</h2>
+                    <p class="text-lg text-gray-300 leading-relaxed">
+                        <!--<span class="text-purple-400 font-semibold">Full Stack Developer</span>-->
+                        I am Gourav Kumawat — a passionate Computer Science graduate with hands-on experience in data annotation, dataset creation, and automation.
+                        I enjoy solving problems, optimizing workflows, and contributing to data-driven projects. During my internship at Tech Mahindra's Maker's Lab, I worked on annotation pipelines, dataset generation, and automated workflows using Appium + Android Studio.
+                        I am constantly learning and excited to contribute to innovative teams where I can grow and apply my technical and analytical skills.
+                    </p>
+                    <p class="text-lg text-gray-300 leading-relaxed">
+                        I enjoy contributing to dynamic teams where I can grow while delivering meaningful results. I am always ready to learn, adapt, and take on new challenges that push my technical and creative boundaries.
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-4 text-gray-400 text-base">
+                        <span class="bg-gray-800 px-3 py-1 rounded-full"><i data-lucide="mail" class="inline-block h-4 w-4 mr-1"></i> gouravkumawat3301@gmail.com</span>
+                        <span class="bg-gray-800 px-3 py-1 rounded-full"><i data-lucide="map-pin" class="inline-block h-4 w-4 mr-1"></i> Aurangabad, Maharashtra</span>
+                    </div>
+                </div>
+
+                <!-- About Image -->
+                <div class="order-1 md:order-2 flex justify-center">
+                    <img class="w-full max-w-xs md:max-w-sm rounded-xl shadow-2xl transform hover:scale-[1.01] transition duration-500 ease-in-out border-4 border-gray-700" 
+                         src="Gourav_Kumawat_Picture.jpeg" 
+                         onerror="this.src='https://placehold.co/500x500/252f40/9CA3AF?text=Your+About+Image'" alt="Professional workspace image">
+                </div>
+            </div>
+        </section>
+        <!-- END: About Page Section -->
+
+        <!-- Divider -->
+        <div class="max-w-7xl mx-auto px-4"><hr class="border-gray-800"></div>
+
+        <!-- START: Skills Page Section -->
+        <section id="skills" class="min-h-screen p-8 lg:p-16 flex flex-col justify-center section-fade-up">
+            <div class="max-w-7xl mx-auto w-full">
+                <h2 class="text-5xl font-extrabold text-center colorful-text mb-12">Technical Skills</h2>
+                
+                <!-- Skills Grid (Made wider using max-w-full and increased columns) -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 w-full">
+                    <!-- Python -->
+                    <div class="skill-card bg-gray-800 p-6 rounded-xl text-center shadow-lg hover:shadow-purple-500/50 hover:bg-gray-700 transition duration-300 cursor-pointer border border-gray-700">
+                        <i class="fab fa-python text-4xl text-blue-400"></i>
+                        <p class="mt-3 text-lg font-semibold text-white">Python</p>
+                        <p class="text-sm text-gray-400">Intermediate</p>
+                    </div>
+
+                    <!-- SQL -->
+                    <div class="skill-card bg-gray-800 p-6 rounded-xl text-center shadow-lg hover:shadow-purple-500/50 hover:bg-gray-700 transition duration-300 cursor-pointer border border-gray-700">
+                        <i class="fas fa-database text-4xl text-orange-500"></i>
+                        <p class="mt-3 text-lg font-semibold text-white">SQL</p>
+                        <p class="text-sm text-gray-400">Intermediate</p>
+                    </div>
+
+                    <!-- CSS -->
+                    <div class="skill-card bg-gray-800 p-6 rounded-xl text-center shadow-lg hover:shadow-purple-500/50 hover:bg-gray-700 transition duration-300 cursor-pointer border border-gray-700">
+                        <i class="fab fa-css3-alt text-4xl text-blue-500"></i>
+                        <p class="mt-3 text-lg font-semibold text-white">CSS</p>
+                        <p class="text-sm text-gray-400">Intermediate</p>
+                    </div>
+
+                    <!-- C Language -->
+                    <div class="skill-card bg-gray-800 p-6 rounded-xl text-center shadow-lg hover:shadow-purple-500/50 hover:bg-gray-700 transition duration-300 cursor-pointer border border-gray-700">
+                        <i class="fas fa-code text-4xl text-green-400"></i>
+                        <p class="mt-3 text-lg font-semibold text-white">C</p>
+                        <p class="text-sm text-gray-400">Intermediate</p>
+                    </div>
+
+                    <!-- HTML -->
+                    <div class="skill-card bg-gray-800 p-6 rounded-xl text-center shadow-lg hover:shadow-purple-500/50 hover:bg-gray-700 transition duration-300 cursor-pointer border border-gray-700">
+                        <i class="fab fa-html5 text-4xl text-red-500"></i>
+                        <p class="mt-3 text-lg font-semibold text-white">HTML</p>
+                        <p class="text-sm text-gray-400">Intermediate/p>
+                    </div>
+
+                    <!-- C++ -->
+                    <div class="skill-card bg-gray-800 p-6 rounded-xl text-center shadow-lg hover:shadow-purple-500/50 hover:bg-gray-700 transition duration-300 cursor-pointer border border-gray-700">
+                        <i class="fas fa-code-branch text-4xl text-purple-400"></i>
+                        <p class="mt-3 text-lg font-semibold text-white">C++</p>
+                        <p class="text-sm text-gray-400">Basic</p>
+                    </div>
+
+                    <!-- Scilab -->
+                    <div class="skill-card bg-gray-800 p-6 rounded-xl text-center shadow-lg hover:shadow-purple-500/50 hover:bg-gray-700 transition duration-300 cursor-pointer border border-gray-700">
+                        <i class="fas fa-flask text-4xl text-yellow-400"></i>
+                        <p class="mt-3 text-lg font-semibold text-white">Scilab</p>
+                        <p class="text-sm text-gray-400">Basic</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END: Skills Page Section -->
+
+        <!-- Divider -->
+        <div class="max-w-7xl mx-auto px-4"><hr class="border-gray-800"></div>
+
+        <!-- START: Experience Page Section -->
+        <section id="experience" class="min-h-screen p-8 lg:p-16 flex flex-col justify-center section-fade-up">
+            <div class="max-w-5xl mx-auto w-full">
+                <h2 class="text-5xl font-extrabold text-center colorful-text mb-3">Professional Experience</h2>
+                <p class="text-center text-sm sm:text-base text-gray-400 italic mb-10 px-4">
+                    ✨ Click on a role to view detailed responsibilities and achievements
+                </p>
+
+
+                <div class="relative mx-auto">
+
+                    <!-- CENTER LINE -->
+                    <div class="absolute left-1/2 -translate-x-1/2 w-1 bg-gradient-to-b from-purple-500/40 to-cyan-500/40 h-full"></div>
+
+                    <div class="space-y-24">
+                        
+                        <!-- RIGHT ITEM -->
+                        <div class="relative flex items-center justify-start">
+                            <div class="w-1/2"></div>
+                            <div class="absolute left-1/2 transform -translate-x-1/2 bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg z-20">
+                                1
+                            </div>
+
+                            <div onclick="showExperienceDetail(0)"
+                                class="timeline-item-left cursor-pointer ml-10 w-1/2 experience-item p-6">
+                                <h3 class="text-xl font-bold">Data Analyst Intern</h3>
+                                <p class="text-sm text-gray-300">Maker's Lab, Tech Mahindra | Jun 2025 - July 2025</p>
+                                <p class="mt-2 text-gray-300">
+                                    I worked on data cleaning, data analysis, and even data visualization and reporting.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- LEFT ITEM -->
+                        <div class="relative flex items-center justify-end">
+                            <div class="absolute left-1/2 transform -translate-x-1/2 bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg z-20">
+                                2
+                            </div>
+
+                            <div onclick="showExperienceDetail(1)"
+                                class="timeline-item-right cursor-pointer mr-10 w-1/2 experience-item p-6">
+                                <h3 class="text-xl font-bold">Artificial Intelligence Intern</h3>
+                                <p class="text-sm text-gray-300">Maker's Lab, Tech Mahindra | Jan 2024 - June 2024</p>
+                                <p class="mt-2 text-gray-300">
+                                    Worked on data annotation for AI/ML training datasets.
+                                </p>
+                            </div>
+
+                            <div class="w-1/2"></div>
+                        </div>
+
+                        <!-- RIGHT ITEM -->
+                        <div class="relative flex items-center justify-start">
+                            <div class="w-1/2"></div>
+
+                            <div class="absolute left-1/2 transform -translate-x-1/2 bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg z-20">
+                                3
+                            </div>
+
+                            <div onclick="showExperienceDetail(2)"
+                                class="timeline-item-left cursor-pointer ml-10 w-1/2 experience-item p-6">
+                                <h3 class="text-xl font-bold">Web Developer Intern</h3>
+                                <p class="text-sm text-gray-300">Code Clause | 2017 - 2018</p>
+                                <p class="mt-2 text-gray-300">
+                                    Create a Github Explorer.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            </section>
+            <!-- Experience Detail Modal -->
+            <div id="experience-modal"
+                class="fixed inset-0 bg-black/70 backdrop-blur-md z-50 hidden items-center justify-center p-4">
+                
+                <div id="modal-content"
+                    class="bg-gray-800/70 border border-white/10 rounded-xl p-8 max-w-lg w-full shadow-2xl backdrop-blur-xl
+                            transform transition-all duration-300 scale-95">
+                    
+                    <div class="flex justify-between items-center border-b border-gray-600 pb-3 mb-4">
+                        <h3 id="modal-title" class="text-2xl font-bold colorful-text"></h3>
+                        <button type="button" aria-label="Close experience details"
+                                onclick="closeExperienceDetail()"
+                                class="text-gray-300 hover:text-white transition">
+                            <i data-lucide="x" class="w-6 h-6"></i>
+                        </button>
+                    </div>
+                    
+                    <p id="modal-date" class="text-sm text-gray-400 mb-4"></p>
+                    <ul id="modal-description" class="space-y-3 text-gray-300"></ul>
+
+                </div>
+            </div>
+
+
+        <!-- Divider -->
+        <div class="max-w-7xl mx-auto px-4"><hr class="border-gray-800"></div>
+
+        <!-- START: Projects Page Section -->
+        <section id="projects" class="min-h-screen p-8 lg:p-16 flex flex-col justify-center section-fade-up">
+            <div class="max-w-7xl mx-auto w-full">
+                <h2 class="text-5xl font-extrabold text-center colorful-text mb-12">Featured Projects</h2>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    
+                    <!-- Project Card 1 -->
+                    <!--<a href="https://github.com/yourprofile/project-one" target="_blank" rel="noopener noreferrer" class="project-card block bg-gray-800 rounded-xl shadow-xl p-6 hover:bg-gray-700 transition duration-300 transform hover:-translate-y-1 hover:shadow-purple-500/50 cursor-pointer border border-gray-700">
+                        <i data-lucide="layout-grid" class="h-8 w-8 text-cyan-400 mb-3"></i>
+                        <h3 class="text-2xl font-bold text-white mb-2">E-commerce Platform</h3>
+                        <p class="text-gray-400 mb-4">A full-stack solution featuring user authentication, product catalog, shopping cart, and mock payment integration.</p>
+                        <span class="text-sm font-semibold text-purple-400">View on GitHub &rarr;</span>
+                    </a>-->
+                    
+                    <!-- Project Card 2 -->
+                    <a href="https://github.com/GouravKumawat13/CodeClause_Github_Explorer" target="_blank" rel="noopener noreferrer" class="project-card block bg-gray-800 rounded-xl shadow-xl p-6 hover:bg-gray-700 transition duration-300 transform hover:-translate-y-1 hover:shadow-purple-500/50 cursor-pointer border border-gray-700">
+                        <i data-lucide="search" class="h-8 w-8 text-yellow-400 mb-3"></i>
+                        <h3 class="text-2xl font-bold text-white mb-2">Github Explorer</h3>
+                        <p class="text-gray-400 mb-4">It is a website that uses Api for searching the name on Github, Displays Name, Followers and Repositories. 
+                            When clicked on name it redirects to the github of the person.
+                        </p>
+                        <span class="text-sm font-semibold text-purple-400">View on GitHub &rarr;</span>
+                    </a>
+
+                    <!-- Project Card 3 -->
+                    <a href="https://github.com/GouravKumawat13/Pedestrian_Detector" target="_blank" rel="noopener noreferrer" class="project-card block bg-gray-800 rounded-xl shadow-xl p-6 hover:bg-gray-700 transition duration-300 transform hover:-translate-y-1 hover:shadow-purple-500/50 cursor-pointer border border-gray-700">
+                        <i data-lucide="area-chart" class="h-8 w-8 text-pink-400 mb-3"></i>
+                        <h3 class="text-2xl font-bold text-white mb-2">Pedestrian Detector</h3>
+                        <p class="text-gray-400 mb-4">
+                            Built a computer vision project that detects pedestrians in images using OpenCV's HOG (Histogram of Oriented Gradients) descriptor with a pre-trained SVM classifier. 
+                            Implemented image preprocessing, multi-scale detection, and bounding-box visualization to accurately identify human figures in static images.
+                        </p>
+                        <span class="text-sm font-semibold text-purple-400">View on GitHub &rarr;</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!-- END: Projects Page Section -->
+
+        <!-- Divider -->
+        <div class="max-w-7xl mx-auto px-4"><hr class="border-gray-800"></div>
+
+        <!-- START: Education Page Section -->
+        <section id="education" class="min-h-screen p-8 lg:p-16 flex flex-col justify-center section-fade-up">
+            <div class="max-w-4xl mx-auto w-full">
+                <h2 class="text-5xl font-extrabold text-center colorful-text mb-12">Education</h2>
+
+                <div class="space-y-10">
+                    <!-- Degree 1 -->
+                    <div class="bg-gray-800 p-8 rounded-xl shadow-xl border-l-4 border-purple-500 transform transition duration-500 hover:scale-[1.01] hover:shadow-purple-500/30">
+                        <div class="flex justify-between items-start">
+                            <h3 class="text-3xl font-bold text-white">Bachelor of Technology in Computer Science and Engineering</h3>
+                            <span class="text-lg text-purple-400 font-semibold">2020 - 2024</span>
+                        </div>
+                        <p class="text-xl text-gray-300 mt-2">Mahatma Gandhi Mission 's Jawaharlal Nehru Engineering College</p>
+                        <p class="text-base text-gray-400 mt-3">Completed With CGPA:- 8.28</p>
+                    </div>
+
+                    <!-- Degree 2 -->
+                    <div class="bg-gray-800 p-8 rounded-xl shadow-xl border-l-4 border-cyan-500 transform transition duration-500 hover:scale-[1.01] hover:shadow-cyan-500/30">
+                        <div class="flex justify-between items-start">
+                            <h3 class="text-3xl font-bold text-white">Higher Secondary Eduction (12th)</h3>
+                            <span class="text-lg text-cyan-400 font-semibold">2018 - 2020</span>
+                        </div>
+                        <p class="text-xl text-gray-300 mt-2">Vasantrao Naik Mahavidyalaya</p>
+                        <p class="text-base text-gray-400 mt-3">Completed With 67%</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END: Education Page Section -->
+
+        <!-- Divider -->
+        <div class="max-w-7xl mx-auto px-4"><hr class="border-gray-800"></div>
+
+        <!-- START: Resume Page Section -->
+        <section id="resume" class="min-h-screen p-8 lg:p-16 flex flex-col justify-center section-fade-up">
+            <div class="max-w-4xl mx-auto w-full text-center">
+                <h2 class="text-5xl font-extrabold colorful-text mb-12">My Résumé</h2>
+
+                <div class="flex flex-col md:flex-row items-center justify-center gap-10">
+                    
+                    <!-- Resume Image -->
+                   <!-- <div class="order-2 md:order-1 flex-shrink-0">
+                        <img class="w-full max-w-xs rounded-lg shadow-2xl border-4 border-gray-700 transition duration-500 hover:shadow-purple-500/50" 
+                             src="https://placehold.co/300x400/252f40/9CA3AF?text=Resume+Preview" 
+                             onerror="this.src='https://placehold.co/300x400/252f40/9CA3AF?text=Resume+Preview'" alt="Resume document preview">
+                    </div>-->
+                    
+                    <!-- Download Action -->
+                    <div class="order-1 md:order-2 space-y-6 md:text-left">
+                        <p class="text-xl text-gray-300">
+                            Want to explore my work in detail? Download my latest resume to get a complete view of my 
+                            professional experience, technical skills, and achievements.
+                        </p>
+                        <!-- Download Button with Hover Effect -->
+                        <!-- Use this code if you are using resume image to show preview of resume -->
+                       <!-- <a href="your_resume_link.pdf" download="Gourav_Kumawat_Resume.pdf" 
+                           class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-medium rounded-xl shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-4 focus:ring-purple-500 focus:ring-opacity-50 transition duration-300 transform hover:scale-[1.05]">
+                            <i data-lucide="download" class="w-5 h-5 mr-3"></i>
+                            Download Résumé (PDF)
+                        </a>-->
+                        <!-- use this if you are not using the above and you want to center the download button -->
+                        <div class="flex justify-center mt-6">
+                            <a href="Gourav-Kumawat-Resume.pdf" download="Gourav_Kumawat_Resume.pdf" 
+                                class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-medium rounded-xl shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-4 focus:ring-purple-500 focus:ring-opacity-50 transition duration-300 transform hover:scale-[1.05]">
+                                <i data-lucide="download" class="w-5 h-5 mr-3"></i>
+                                Download Resume (PDF)
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END: Resume Page Section -->
+
+     </main>
+
+    <!-- START: Footer Section -->
+    <footer class="footer-glass mt-12 p-8">
+    <div class="max-w-7xl mx-auto text-center">
+        <p class="footer-text">
+        &copy; 2025 Gourav Kumawat. Built with Tailwind CSS, JavaScript, and
+        <span class="rainbow-text font-bold">GSAP</span>.
+        </p>
+    </div>
+    </footer>
+    <!-- END: Footer Section -->
+
+    <script>
+
+        // Reset scroll position on refresh
+        window.history.scrollRestoration = "manual";
+        window.scrollTo(0, 0);
+
+        window.addEventListener("load", () => {
+            gsap.to(window, { scrollTo: 0, duration: 0 });
+        });
+
+
+        // --- DATA ---
+        const EXPERIENCE_DATA = [
+            {
+                title: "Data Analyst Intern",
+                company: "Deloitte (via Forage)",
+                date: "June 2025 - July 2024",
+                details: [
+                "I worked on data cleaning, data analysis, and even data visualization and reporting.",
+                "I used Microsoft Excel for my work and I applied it to large data sets significantly by getting the data validated, discovering trends, and creating insights that were actionable.",
+                "I had the task of creating and implementing a Tableau dashboard that not only met the user-friendliness criteria but also had two critical visualizations that were very important in the business decision-making process.",
+                "This was a very close-to-life application of the skills in data analytics, writing narratives, and problem-solving which helped me to interpret business data and to make a presentation of the findings. I have made huge strides in my analytical reasoning, attention to detail, dashboard building, and generation of insights from data."
+
+                ]
+            },
+            {
+                title: "Artificial Intelligence Intern",
+                company: "Maker's Lab, Tech Mahindra",
+                date: "Jan 2024 - Jun 2024",
+                details: [
+                    "Worked on data annotation for AI/ML training datasets",
+                    "Created custom datasets for machine learning experiments",
+                    "Automated an Android-based game using Appium & Android Studio",
+                    "Collaborated with team members for data cleaning and preparation"
+                ]
+            },
+            {
+                title: "Web Developer Intern",
+                company: "Code Clause",
+                date: "Jun 2023 - July 2023",
+                details: [
+                    "Create a Github Explorer.",
+                    "A person can search a profiles and visits their github profile by just typing there username",
+                    "It will show followers and repositories."
+                ]
+            }
+        ];
+
+        // --- GSAP ANIMATION LOGIC ---
+
+        // Register GSAP plugins (ScrollTrigger, TextPlugin, ScrollToPlugin)
+        gsap.registerPlugin(ScrollTrigger, TextPlugin, ScrollToPlugin);
+
+        // 1. Initial Page Fade Up
+        gsap.to("body", { 
+            opacity: 1, 
+            duration: 1.5, 
+            ease: "power2.out" 
+        });
+
+        // 2. Slide-In Phrase Loop (No Delete)
+        const TYPE_PHRASES = [
+            "Software Developer",
+            "Tech Enthusiast",
+            "Motivated Person",
+            "Problem Solver"
+        ];
+
+        let phraseIndex = 0;
+        const typeTarget = document.getElementById("typewriter-text");
+
+        // Base starting style (optional)
+        typeTarget.style.opacity = 0;
+
+        function playSlidePhrase() {
+            const phrase = TYPE_PHRASES[phraseIndex];
+
+            // Step 1: Set the text immediately
+            typeTarget.textContent = phrase;
+
+            // Step 2: Slide-in animation
+            gsap.fromTo(
+                typeTarget,
+                { x: 40, opacity: 0 },
+                {
+                    x: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: "power3.out",
+                    onComplete: () => {
+                        // Step 3: Hold for a moment
+                        gsap.delayedCall(1.6, () => {
+                            // Step 4: Slide-out animation
+                            gsap.to(typeTarget, {
+                                x: -40,
+                                opacity: 0,
+                                duration: 0.7,
+                                ease: "power3.in",
+                                onComplete: () => {
+                                    // Move to next phrase
+                                    phraseIndex = (phraseIndex + 1) % TYPE_PHRASES.length;
+
+                                    // Reset position before next slide in
+                                    gsap.set(typeTarget, { x: 40 });
+
+                                    playSlidePhrase();
+                                }
+                            });
+                        });
+                    }
+                }
+            );
+        }
+
+        // Start after a short delay
+        gsap.delayedCall(0.5, playSlidePhrase);
+
+        // 3. Smooth Scrolling (for Navbar Clicks)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                // if it's a link-to-top or hash
+                const href = this.getAttribute('href');
+                if (!href || href === '#') return;
+                e.preventDefault();
+
+                const targetId = href;
+                const targetElement = document.querySelector(targetId);
+                
+                if (!targetElement) {
+                    console.error("Target element not found for ID:", targetId);
+                    return;
+                }
+
+                // Close mobile menu first (if visible)
+                if (document.getElementById('mobile-menu').classList.contains('flex')) {
+                    toggleMobileMenu();
+                }
+
+                // GSAP smooth scroll
+                gsap.to(window, {
+                    duration: 1.2,
+                    scrollTo: {
+                        y: targetElement,
+                        offsetY: 80 // Offset for fixed navbar
+                    },
+                    ease: "power2.inOut",
+                    onComplete: () => {
+                        // After scrolling, refresh ScrollTrigger for that section if necessary
+                        if (targetId !== '#home') {
+                            const st = ScrollTrigger.getById(targetId.substring(1) + '-trigger');
+                            if (st) st.refresh();
+                        }
+                    }
+                });
+            });
+        });
+
+        // 4. General Section Fade Up Animation (Applies to all sections)
+        document.querySelectorAll(".section-fade-up").forEach((section, index) => {
+            // skip home (it has a background & initial view)
+            if (section.id === 'home') return;
+            
+            gsap.from(section, {
+                opacity: 0,
+                y: 50,
+                duration: 3.0,
+                ease: "power3.out",
+                scrollTrigger: {
+                    id: section.id + '-trigger',
+                    trigger: section,
+                    start: "top 60%", // When the top of the section hits 80% of the viewport height
+                    toggleActions: "play none none none", // Only play animation once when entering
+                }
+            });
+        });
+
+        // 5. Experience Timeline Animation (Fade Left and Fade Right)
+        document.querySelectorAll(".timeline-item-left").forEach((item) => {
+            gsap.from(item, {
+                x: -120,    // small elegant slide from the left
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: item,
+                    start: "top 85%",
+                    toggleActions: "play none none none",
+                }
+            });
+        });
+
+        // RIGHT → CENTER animation
+        document.querySelectorAll(".timeline-item-right").forEach((item) => {
+            gsap.from(item, {
+                x: 120,           // small elegant slide from the right
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: item,
+                    start: "top 85%",
+                    toggleActions: "play none none none",
+                }
+            });
+        });
+
+
+        // --- UI & INTERACTION LOGIC ---
+
+        // Mobile Menu Logic
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function toggleMobileMenu() {
+            const isMenuOpen = mobileMenu.classList.contains('flex');
+            if (isMenuOpen) {
+                // Animate out
+                gsap.to(mobileMenu, { 
+                    opacity: 0, 
+                    duration: 0.25, 
+                    onComplete: () => mobileMenu.classList.replace('flex', 'hidden') 
+                });
+            } else {
+                // Animate in
+                mobileMenu.classList.replace('hidden', 'flex');
+                mobileMenu.classList.add('flex-col', 'items-center');
+                gsap.fromTo(mobileMenu, { opacity: 0 }, { opacity: 1, duration: 0.25 });
+            }
+        }
+        
+        mobileMenuButton.addEventListener('click', toggleMobileMenu);
+        // Close mobile menu when a mobile link is clicked
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', toggleMobileMenu);
+        });
+        
+        // Experience Detail Modal Functions
+        const experienceModal = document.getElementById('experience-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDate = document.getElementById('modal-date');
+        const modalDescription = document.getElementById('modal-description');
+        const modalContent = document.getElementById('modal-content');
+
+        function showExperienceDetail(index) {
+            const exp = EXPERIENCE_DATA[index];
+            
+            modalTitle.textContent = `${exp.title} at ${exp.company}`;
+            modalDate.textContent = exp.date;
+            modalDescription.innerHTML = exp.details.map(d => `<li class="flex items-start"><i data-lucide="check" class="h-4 w-4 text-cyan-400 mr-2 mt-1 flex-shrink-0"></i><span>${d}</span></li>`).join('');
+            
+            experienceModal.classList.remove('hidden');
+            experienceModal.classList.add('flex');
+            
+            // GSAP Modal Animation (On Click)
+            gsap.fromTo(modalContent, 
+                { scale: 0.8, opacity: 0 }, 
+                { scale: 1, opacity: 1, duration: 0.32, ease: "back.out(1.7)" }
+            );
+
+            // Re-render Lucide icons inside the modal
+            lucide.createIcons();
+        }
+
+        function closeExperienceDetail() {
+            // GSAP Modal Animation (On Click)
+            gsap.to(modalContent, {
+                scale: 0.8,
+                opacity: 0,
+                duration: 0.18,
+                ease: "power2.in",
+                onComplete: () => {
+                    experienceModal.classList.remove('flex');
+                    experienceModal.classList.add('hidden');
+                }
+            });
+        }
+        
+        // Close modal on outside click
+        experienceModal.addEventListener('click', (e) => {
+            if (e.target === experienceModal) {
+                closeExperienceDetail();
+            }
+        });
+
+        // Active nav highlighting as user scrolls
+        const navLinks = Array.from(document.querySelectorAll('.nav-link'));
+        const sections = Array.from(document.querySelectorAll('section[id]')); // only sections with id
+        function updateActiveNavOnScroll() {
+            // Find the section currently closest to top (but not below)
+            let currentId = '';
+            const offset = 120; // adjust for navbar height
+            sections.forEach(sec => {
+                const top = sec.getBoundingClientRect().top;
+                if (top - offset <= 0) {
+                    currentId = sec.id;
+                }
+            });
+            // Remove and add 'active' class
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                const href = link.getAttribute('href');
+                if (href === '#' + currentId) link.classList.add('active');
+            });
+        }
+        // run on scroll and on load
+        window.addEventListener('scroll', updateActiveNavOnScroll);
+        window.addEventListener('resize', updateActiveNavOnScroll);
+        // init once content is loaded
+        window.addEventListener('load', updateActiveNavOnScroll);
+
+        // Initialize Lucide Icons for all pages
+        window.onload = () => {
+            lucide.createIcons();
+            // Also ensure initial active nav is correct
+            updateActiveNavOnScroll();
+        };
+
+    </script>
+</body>
+</html>
